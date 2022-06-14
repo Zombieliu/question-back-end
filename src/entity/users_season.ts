@@ -14,6 +14,11 @@ export class Users_season {
   @Column()
   season: string;
 
+  @Column()
+  season_phase: string;
+
+  @Column()
+  season_type: string;
 
   @Column()
   season_url: string;

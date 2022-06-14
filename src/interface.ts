@@ -31,13 +31,13 @@ export interface users_history_record {
   content:string;
   content_index:number;
   season:string;
+  season_phase:string;
 }
 
 export interface Buy_season {
   email: string;
   near_address:string;
-  season:string;
-  season_url:string;
+  season_phase:string;
 
 }
 

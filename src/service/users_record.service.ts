@@ -47,7 +47,7 @@ export class UsersRecordService {
         where:{season,email}
       }
     )
-    if( Number(result2.correct_number) <= 5){
+    if( Number(result2.correct_number) <= 20){
 
       result2.correct_number = (Number(result2.correct_number)+ 1)
 
@@ -89,10 +89,10 @@ export class UsersRecordService {
     return result;
   }
 
-  async querySeason_questions_number(season,email) {
+  async querySeason_questions_number(season_phase,email,near_address) {
     const result = await this.usersSeason.findOne(
       {
-        where:{season,email}
+        where:{season_phase,email,near_address}
       }
     )
     return result;
@@ -109,18 +109,39 @@ export class UsersRecordService {
   }
 
 
-  async buy_season(season,season_url,email,near_address) {
+  async buy_season(season_phase,email,near_address) {
     const user = new Users_season();
+    user.season_phase = season_phase;
     user.email = email;
     user.near_address = near_address;
-    user.season = season;
-    user.season_url = season_url;
+    user.season = "abel";
+    user.season_url = "https://cdn.discordapp.com/attachments/876498266550853642/981828663366541352/xie.png";
+    user.season_type = "普通";
     user.correct_number = 0;
     user.all_questions = 0;
     // save entity
     const userResult = await this.usersSeason.save(user);
     return userResult;
   }
+
+  async season_level(season_phase,email,near_address) {
+
+    const result = await this.usersSeason.findOne(
+      {
+        where:{season_phase,email,near_address}
+      }
+    )
+    result.season_type = "进阶",
+    result.season_url = "https://cdn.discordapp.com/attachments/876498266550853642/984025747171713055/main_.png",
+    await this.usersSeason.save(result);
+
+    // save entity
+    return result;
+
+
+  }
+
+
 
 
 

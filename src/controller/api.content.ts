@@ -97,9 +97,10 @@ export class ApiContent {
 
   @Get('/query/season_questions_number')
   async querySeason_questions_number(@Query() input: users_history_record) {
-    const season = input.season
+    const season_phase = input.season_phase
     const email = input.email;
-    const result = await this.apiUserRecord.querySeason_questions_number(season,email)
+    const near_address =input.near_address
+    const result = await this.apiUserRecord.querySeason_questions_number(season_phase,email,near_address)
     return result;
   }
 
@@ -112,12 +113,21 @@ export class ApiContent {
 
   @Post('/buy_season')
   async buy_season(@Body() input: Buy_season ) {
-    const season = input.season
-    const season_url = input.season_url;
     const email = input.email;
-    const near_address =input.near_address
-    const result = await this.apiUserRecord.buy_season(season,season_url,email,near_address)
+    const near_address =input.near_address;
+    const season_phase = input.season_phase;
+
+    const result = await this.apiUserRecord.buy_season(season_phase,email,near_address)
     return result;
   }
 
+  @Post('/season_level')
+  async season_level(@Body() input: Buy_season ) {
+    const email = input.email;
+    const near_address =input.near_address;
+    const season_phase = input.season_phase;
+
+    const result = await this.apiUserRecord.season_level(season_phase,email,near_address)
+    return result;
+  }
 }
