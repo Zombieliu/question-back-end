@@ -56,3 +56,13 @@ export interface user_swap_tokenA_to_usn {
   amount_in:string;
 }
 
+  export interface user_upgrade {
+    email: string;
+    task_name:string;
+    data_number:number
+}
+
+export interface task_list {
+  email: string;
+  task_name:string;
+}

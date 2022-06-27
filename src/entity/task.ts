@@ -2,38 +2,41 @@ import { EntityModel } from '@midwayjs/orm';
 import {
   Column,
   PrimaryGeneratedColumn,
-  VersionColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @EntityModel()
-export class Web2User {
+export class Task {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({
-    length: 100,
-  })
-  username: string;
-
-  @Column('text')
-  description?: string;
 
   @Column()
   email: string;
 
   @Column()
-  near_address: string;
+  season_type: string;
 
   @Column()
-  coin: number;
+  task_name: string;
 
   @Column()
-  level: number;
+  task_img: string;
 
   @Column()
-  level_progress: number;
+  task_content: string;
+
+  @Column()
+  task_progress: string;
+
+  @Column()
+  task_require: string;
+
+  @Column()
+  task_award:number;
+
+  @Column()
+  task_complete:boolean;
 
   @CreateDateColumn()
   create?: number;
@@ -41,6 +44,4 @@ export class Web2User {
   @UpdateDateColumn()
   update?: number;
 
-  @VersionColumn()
-  version?: number;
 }

@@ -3,6 +3,7 @@ import {InjectEntityModel} from "@midwayjs/orm";
 import {Repository} from "typeorm";
 import {Users_history_record} from "../entity/users_history_record";
 import {Users_season} from "../entity/users_season";
+import {Task} from "../entity/task";
 
 @Provide()
 export class UsersRecordService {
@@ -12,6 +13,9 @@ export class UsersRecordService {
 
   @InjectEntityModel(Users_season)
   usersSeason: Repository<Users_season>;
+
+  @InjectEntityModel(Task)
+  Task: Repository<Task>;
 
 
   async add_users_record(email,near_address,content,correct_number,content_index,all_questions,season) {
@@ -121,8 +125,25 @@ export class UsersRecordService {
     user.all_questions = 0;
     // save entity
     const userResult = await this.usersSeason.save(user);
+
+    const task = new Task();
+    task.email = email;
+    task.season_type = "普通";
+    task.task_name = "第一个任务";
+    task.task_img = "https://cdn.discordapp.com/attachments/876498266550853642/978213965781958696/3.png";
+    task.task_content = "完成一次答题";
+    task.task_progress = "0";
+    task.task_require = "1";
+    task.task_award = 2;
+    task.task_complete = false;
+    await this.Task.save(task);
+
     return userResult;
   }
+
+
+
+
 
   async season_level(season_phase,email,near_address) {
 

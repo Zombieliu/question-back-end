@@ -12,6 +12,7 @@ import {Web2UsersService} from '../service/web2.user.service';
 import {NearUsersService} from "../service/near.user.service";
 import {
   transfer_info, user_swap_tokenA_to_usn,
+  user_upgrade,
   Web2UserAndKey,
   Web2UserKey
 } from "../interface";
@@ -36,6 +37,15 @@ export class HomeController {
   @Inject()
   nearUserInternalAssetService: NearUsersService;
 
+
+
+
+  @Get('/query/findUserInfo')
+  async findUserInfo(@Query() input: Web2UserAndKey) {
+    const email = input.email;
+    const result =   await this.web2UserService.findUserInfo(email);
+    return result;
+  }
 
   @Get('/user/swap/tokenA_to_usn_number')
   async user_swap_tokenA_to_usn_number(@Query() input: user_swap_tokenA_to_usn) {
@@ -197,6 +207,17 @@ export class HomeController {
       data_amount_in
     };
     const result = await swap_tokena_to_usn(data)
+    return result;
+  }
+
+  @Post('/user/upgrade')
+  async user_upgrade(@Body() input: user_upgrade) {
+    const email = input.email;
+    const data_number = input.data_number;
+    const task_name = input.task_name
+    // const data_near_secretKey = (await this.nearUserService.findSecretKey(input.task_name)).secretKey;
+
+    const result =   await this.web2UserService.user_upgrade(email,data_number,task_name);
     return result;
   }
 
